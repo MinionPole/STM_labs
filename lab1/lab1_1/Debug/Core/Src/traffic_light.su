@@ -1,0 +1,6 @@
+../Core/Src/traffic_light.c:9:6:my_GPIO_INIT	40	static
+../Core/Src/traffic_light.c:38:6:set_LED	16	static
+../Core/Src/traffic_light.c:51:15:read_PIN	24	static
+../Core/Src/traffic_light.c:61:5:read_button	24	static
+../Core/Src/traffic_light.c:77:6:reset_LEDS	8	static
+../Core/Src/traffic_light.c:81:6:nextStateMachine	48	static
