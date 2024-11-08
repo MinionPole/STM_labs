@@ -58,6 +58,11 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
 void init_vals_IT(){
 	len_in_buf = 0;
 	memset(in_buffer_IT, 't', sizeof(in_buffer_IT));
@@ -93,10 +98,6 @@ void print_collected_data(){
 	}
 }
 
-
-
-
-
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
   in_buffer_IT[len_in_buf] = el;
   transend_data_IT(&el, 1);
@@ -116,12 +117,6 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 	send_req = 0;
 	print_collected_data();
 }
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
 /* USER CODE END 0 */
 
 /**
