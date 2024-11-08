@@ -264,61 +264,74 @@ void nextStateMachine(TrafficLight *light, int red_t, int other_t, int *current_
  * @param current_red - pointer to the current red time
  * @param button_flag_button - pointer to the button flag
  */
-void check_button(int* cnt, int other_t, int* current_red, int* button_flag_button){
-    if(cnt == NULL || current_red == NULL || button_flag_button == NULL) return; // Error checking
-    if(read_button(cnt)){
+void check_button(int *cnt, int other_t, int *current_red, int *button_flag_button)
+{
+    if (cnt == NULL || current_red == NULL || button_flag_button == NULL)
+        return; // Error checking
+    if (read_button(cnt))
+    {
         *current_red = other_t;
         *button_flag_button = 1;
     }
 }
 
-void parser(char *in_buf, int *cur_length, struct mech_data *tfl_obj)
+void parser(char *in_buf, int *cur_length, MechData *tfl_obj)
 {
-     char out_buffer[OUT_BUFFER_SIZE];
-    if(in_buf == NULL || cur_length == NULL || tfl_obj == NULL) return; // Error checking
+    char out_buffer[OUT_BUFFER_SIZE];
+    if (in_buf == NULL || cur_length == NULL || tfl_obj == NULL)
+        return; // Error checking
 
-    if(strncmp(in_buf, "!", 1) == 0){
-        int transmitted_data_len = snprintf(out_buffer, OUT_BUFFER_SIZE, "current_state is %s, timeout is %d, mode is %d, I is %d\r",
-            getColorName(tfl_obj->state), tfl_obj->red_time, tfl_obj->work_mode, tfl_obj->interrupt_enable);
+    if (strncmp(in_buf, "!", 1) == 0)
+    {
+        int transmitted_data_len =
+            snprintf(out_buffer, OUT_BUFFER_SIZE, "current_state is %s, timeout is %d, mode is %d, I is %d\r",
+                     getColorName(tfl_obj->state), tfl_obj->red_time, tfl_obj->work_mode, tfl_obj->interrupt_enable);
         transmit_data(out_buffer, transmitted_data_len, tfl_obj->interrupt_enable);
     }
 
-    char* set_mode_flag = strstr(in_buf, "set mode ");
-    if(set_mode_flag) {
+    char *set_mode_flag = strstr(in_buf, "set mode ");
+    if (set_mode_flag)
+    {
         int val = (*(set_mode_flag + 9) - '0');
         tfl_obj->work_mode = val;
-        if(val == 0)
+        if (val == 0)
             tfl_obj->button_pressed_flag = 0;
         int transmitted_data_len = snprintf(out_buffer, OUT_BUFFER_SIZE, "data change to %d\r", val);
         transmit_data(out_buffer, transmitted_data_len, tfl_obj->interrupt_enable);
     }
 
-    char* set_red_time = strstr(in_buf, "set timeout ");
-    if(set_red_time) {
+    char *set_red_time = strstr(in_buf, "set timeout ");
+    if (set_red_time)
+    {
         set_red_time += strlen("set timeout ");
         int val = 0;
-        while(*set_red_time != '\0') {
-            if(*set_red_time < '0' || *set_red_time > '9') break; // Validate input
+        while (*set_red_time != '\0')
+        {
+            if (*set_red_time < '0' || *set_red_time > '9')
+                break; // Validate input
             val = val * 10 + (*set_red_time - '0');
             set_red_time++;
         }
-        if(tfl_obj->current_red == tfl_obj->red_time)
+        if (tfl_obj->current_red == tfl_obj->red_time)
             tfl_obj->current_red = val;
         else
             tfl_obj->current_red = val / 4;
         tfl_obj->red_time = val;
         tfl_obj->other_time = tfl_obj->red_time / 4;
-        int transmitted_data_len = snprintf(out_buffer, OUT_BUFFER_SIZE, "red timeout change to %d\r", tfl_obj->current_red);
+        int transmitted_data_len =
+            snprintf(out_buffer, OUT_BUFFER_SIZE, "red timeout change to %d\r", tfl_obj->current_red);
         transmit_data(out_buffer, transmitted_data_len, tfl_obj->interrupt_enable);
     }
 
-    if(strncmp(in_buf, "set interrupts on", 17) == 0) {
+    if (strncmp(in_buf, "set interrupts on", 17) == 0)
+    {
         int transmitted_data_len = snprintf(out_buffer, OUT_BUFFER_SIZE, "interrupt enabled\r");
         enable_interrupt(tfl_obj);
         transmit_data(out_buffer, transmitted_data_len, tfl_obj->interrupt_enable);
     }
 
-    if(strncmp(in_buf, "set interrupts off", 18) == 0) {
+    if (strncmp(in_buf, "set interrupts off", 18) == 0)
+    {
         int transmitted_data_len = snprintf(out_buffer, OUT_BUFFER_SIZE, "interrupt disabled\r");
         disable_interrupt(tfl_obj);
         transmit_data(out_buffer, transmitted_data_len, tfl_obj->interrupt_enable);
@@ -330,8 +343,10 @@ void parser(char *in_buf, int *cur_length, struct mech_data *tfl_obj)
  * @brief Function to enable interrupts
  * @param tfl_obj - pointer to the traffic light object
  */
-void enable_interrupt(MechData* tfl_obj) {
-    if(tfl_obj == NULL) return; // Error checking
+void enable_interrupt(MechData *tfl_obj)
+{
+    if (tfl_obj == NULL)
+        return; // Error checking
     HAL_NVIC_EnableIRQ(USART6_IRQn);
     tfl_obj->interrupt_enable = 1;
 }
@@ -340,8 +355,10 @@ void enable_interrupt(MechData* tfl_obj) {
  * @brief Function to disable interrupts
  * @param tfl_obj - pointer to the traffic light object
  */
-void disable_interrupt(MechData* tfl_obj) {
-    if(tfl_obj == NULL) return; // Error checking
+void disable_interrupt(MechData *tfl_obj)
+{
+    if (tfl_obj == NULL)
+        return; // Error checking
     HAL_UART_AbortReceive(&huart6);
     HAL_NVIC_DisableIRQ(USART6_IRQn);
     tfl_obj->interrupt_enable = 0;

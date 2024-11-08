@@ -36,7 +36,7 @@ typedef struct {
 	  int work_mode;
 	  TrafficLight state;
 
-	  int interupt_enable;
+	  int interrupt_enable;
 } MechData;
 
 /* GPIO Initialization */
@@ -55,11 +55,11 @@ void nextStateMachine(TrafficLight* light, int red_t, int other_t, int* current_
 void check_button(int* cnt, int other_t, int* current_red, int* button_flag_button);
 
 /* Command Handling */
-void parser(char* in_buf, int* cur_length, struct mech_data* tfl_obj);
+void parser(char* in_buf, int* cur_length, MechData* tfl_obj);
 
 /* Interrupt Control */
-void enable_interrupt(struct mech_data* tfl_obj);
-void disable_interrupt(struct mech_data* tfl_obj);
+void enable_interrupt(MechData* tfl_obj);
+void disable_interrupt(MechData* tfl_obj);
 
 /* Initialization */
 void init_vals_IT();

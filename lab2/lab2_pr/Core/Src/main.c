@@ -121,7 +121,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             if (in_buffer_IT[len_in_buf - 1] == '\r')
             {
                 in_buffer_IT[len_in_buf - 1] = '\0'; // Replace carriage return with null terminator
-                deshifr(in_buffer_IT, &len_in_buf, &fsm_obj);
+                parser(in_buffer_IT, &len_in_buf, &fsm_obj);
                 len_in_buf = 0;
             }
         }
@@ -219,7 +219,7 @@ int main(void)
                 if (in_buffer[in_curlen] == '\r')
                 {
                     in_buffer[in_curlen] = '\0';
-                    deshifr(in_buffer, &in_curlen, &fsm_obj);
+                    parser(in_buffer, &in_curlen, &fsm_obj);
                     in_curlen = 0;
                 }
                 else
