@@ -1,0 +1,5 @@
+../Core/Src/kb_up.c:4:9:checkButtons	24	static
+../Core/Src/kb_up.c:47:6:init_cnt	16	static
+../Core/Src/kb_up.c:53:5:increase_cnt	24	static
+../Core/Src/kb_up.c:69:6:convert_button_to_symbol	16	static
+../Core/Src/kb_up.c:108:5:checkKB	24	static

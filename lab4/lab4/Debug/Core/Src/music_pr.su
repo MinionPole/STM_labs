@@ -1,0 +1,5 @@
+../Core/Src/music_pr.c:9:6:change_now_oktav	24	static
+../Core/Src/music_pr.c:15:6:change_music_time	24	static
+../Core/Src/music_pr.c:21:6:analize_symb	136	static
+../Core/Src/music_pr.c:62:6:execute_one_oktav	136	static
+../Core/Src/music_pr.c:75:6:execute_melody	16	static

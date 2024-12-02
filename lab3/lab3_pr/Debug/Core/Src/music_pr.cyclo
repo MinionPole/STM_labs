@@ -1,0 +1,5 @@
+music_pr.c:9:6:change_now_oktav	3
+music_pr.c:15:6:change_music_time	3
+music_pr.c:21:6:analize_symb	10
+music_pr.c:62:6:execute_one_oktav	2
+music_pr.c:75:6:execute_melody	2

@@ -1,0 +1,5 @@
+kb_up.c:4:9:checkButtons	11
+kb_up.c:47:6:init_cnt	2
+kb_up.c:53:5:increase_cnt	5
+kb_up.c:69:6:convert_button_to_symbol	13
+kb_up.c:108:5:checkKB	4

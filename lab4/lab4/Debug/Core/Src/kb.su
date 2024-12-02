@@ -1,0 +1,2 @@
+../Core/Src/kb.c:5:19:Set_Keyboard	128	static
+../Core/Src/kb.c:32:9:Check_Row	144	static

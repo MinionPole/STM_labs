@@ -1,0 +1,11 @@
+traffic_light.c:9:6:my_GPIO_INIT	1
+traffic_light.c:37:6:set_LED	2
+traffic_light.c:50:15:read_PIN	2
+traffic_light.c:60:13:getColorName	5
+traffic_light.c:71:5:read_button	3
+traffic_light.c:85:6:reset_LEDS	1
+traffic_light.c:89:6:nextStateMachine	16
+traffic_light.c:174:6:check_button	2
+traffic_light.c:181:6:enable_interrupt	1
+traffic_light.c:186:6:disable_interrupt	1
+traffic_light.c:192:6:deshifr	15
